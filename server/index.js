@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import healthRouter from './routes/healthRoute.js';
-import customerRouter from './routes/customerRoutes.js'
+import customerRouter from './routes/customerRoutes.js';
+import authRouter from './routes/authRoutes.js';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/api/v1', healthRouter);
 app.use('/api/v1/customers', customerRouter);
+router.use('api/v1/auth', autauthRouterRoutes);
 
 // Basic root route
 app.get('/', (req, res) => {

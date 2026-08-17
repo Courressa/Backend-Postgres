@@ -4,9 +4,6 @@ import * as customerController from '../controllers/customerController.js';
 
 const router = Router();
 
-// POST - /api/v1/customers - register customer - PUBLIC
-router.post('/', customerController.createCustomer);
-
 // GET - /api/v1/customers (default page 1 limit 10) - get all customers - PRIVATE - Admin access only
 router.get('/', customerController.getAllCustomers);          // supports ?page=1&limit=10
 
