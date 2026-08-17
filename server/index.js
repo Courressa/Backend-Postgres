@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use('/api/v1', healthRouter);
 app.use('/api/v1/customers', customerRouter);
-router.use('api/v1/auth', autauthRouterRoutes);
+app.use('api/v1/auth', authRouter);
 
 // Basic root route
 app.get('/', (req, res) => {
