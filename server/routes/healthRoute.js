@@ -3,6 +3,7 @@ import { getHealth } from '../controllers/healthController.js';
 
 const router = Router();
 
+// GET - /api/v1/health - status check
 router.get('/health', getHealth);
 
 export default router;
