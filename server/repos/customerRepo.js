@@ -30,13 +30,21 @@ export const findCustomerByEmail = async (email) => {
   return result.rows[0] || null;
 };
 
-export const findAllCustomers = async () => {
+export const findAllCustomers = async ({ limit = 10, offset = 0 } = {}) => {
   const result = await pool.query(
     `SELECT id, email, first_name, last_name, created_at, updated_at
      FROM customers
-     ORDER BY id ASC`
+     ORDER BY id ASC
+     LIMIT $1 OFFSET $2`,
+    [limit, offset]
   );
   return result.rows;
+};
+
+// Get total count for pagination metadata
+export const countCustomers = async () => {
+  const result = await pool.query(`SELECT COUNT(*) FROM customers`);
+  return parseInt(result.rows[0].count, 10);
 };
 
 export const updateCustomer = async (id, { first_name, last_name }) => {
