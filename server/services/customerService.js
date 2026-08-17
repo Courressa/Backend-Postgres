@@ -1,6 +1,8 @@
 import * as customerRepo from '../repos/customerRepo.js';
 import bcrypt from 'bcrypt';
 
+const SALT_ROUNDS = 10;
+
 export const createCustomer = async ({ email, password, first_name, last_name }) => {
   // Check if email already exists
   const existing = await customerRepo.findCustomerByEmail(email);
@@ -8,7 +10,7 @@ export const createCustomer = async ({ email, password, first_name, last_name })
     throw new Error('Email already registered');
   }
 
-  const password_hash = await bcrypt.hash(password, 10);
+  const password_hash = await bcrypt.hash(password, SALT_ROUNDS);
 
   const customer = await customerRepo.createCustomer({
     email,

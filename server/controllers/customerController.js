@@ -1,8 +1,47 @@
 import * as customerService from '../services/customerService.js';
 
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export const createCustomer = async (req, res) => {
   try {
-    const customer = await customerService.createCustomer(req.body);
+    let { email, password, first_name, last_name } = req.body;
+
+    // Trim
+    email = email?.trim();
+    first_name = first_name?.trim();
+    last_name = last_name?.trim();
+
+    // Required fields
+    if (!email || !password || !first_name || !last_name) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'All fields are required'
+      });
+    }
+
+    // Format checks
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Invalid email format'
+      });
+    }
+
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Password must be at least 8 characters and contain uppercase, lowercase, and a number'
+      });
+    }
+
+    const customer = await customerService.createCustomer({
+      email,
+      password,
+      first_name,
+      last_name
+    });
+
     res.status(201).json({
       status: 'success',
       data: customer

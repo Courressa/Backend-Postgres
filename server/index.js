@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import routes from './routes/healthRoute.js';
+import healthRouter from './routes/healthRoute.js';
+import customerRouter from './routes/customerRoutes.js'
 
 dotenv.config();
 
@@ -9,8 +10,9 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Mount routes
-app.use('/api/v1', routes);
+
+app.use('/api/v1', healthRouter);
+app.use('/api/v1/customers', customerRouter);
 
 // Basic root route
 app.get('/', (req, res) => {
