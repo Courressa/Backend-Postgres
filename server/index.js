@@ -13,8 +13,8 @@ app.use(express.json());
 
 
 app.use('/api/v1', healthRouter);
+app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/customers', customerRouter);
-app.use('api/v1/auth', authRouter);
 
 // Basic root route
 app.get('/', (req, res) => {
